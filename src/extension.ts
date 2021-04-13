@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('javasmartformatter.smartFormat', () => {
+	let disposable = vscode.commands.registerCommand('javasmartformatter.formatOpen', () => {
 		// The code you place here will be executed every time your command is executed
 
 		let jarPath = "/home/carter/repos/codebuff/target/codebuff-1.5.1.jar";
@@ -22,46 +22,45 @@ export function activate(context: vscode.ExtensionContext) {
 
 		let visibleTextEditors = vscode.window.visibleTextEditors;
 
-		let examplePath = "";
-		let knownDocuments = vscode.workspace.textDocuments;
-		knownDocuments.forEach((doc) =>
+		vscode.workspace.findFiles('**/jsfExample.java').then((files) =>
 		{
-			if(doc.fileName.endsWith("jsfExample.java")){
-				examplePath = doc.fileName;
+			if(files.length === 1){
+				let examplePath = files[0].path;
+				visibleTextEditors.forEach((editor) =>
+				{
+					if(!editor.document.fileName.endsWith("jsfExample.java")){
+						let outputPath = editor.document.fileName;
+
+						let terminalCommand = 'java -jar "' +
+						jarPath +
+						'" -g org.antlr.codebuff.Java -rule compilationUnit -corpus "' +
+						examplePath +
+						'" -files java -comment LINE_COMMENT -o "' +
+						outputPath +
+						'" "' +
+						outputPath +
+						'"\n';
+			
+						vscode.commands.executeCommand('workbench.action.terminal.new').then(() =>
+						vscode.commands.executeCommand(
+							'workbench.action.terminal.sendSequence',
+							{"text": terminalCommand}
+						).then(() =>{
+							vscode.commands.executeCommand('workbench.action.terminal.focusPrevious');
+						}));
+			
+						// Display a message box to the user
+						vscode.window.showInformationMessage("reformatted " + outputPath);
+					}
+				});
+			}
+			else if (files.length === 0){
+				vscode.window.showInformationMessage("no file called jsfExample.java found");
+			}
+			else {
+				vscode.window.showInformationMessage("more than one jsfExample.java file found in project");
 			}
 		});
-		if(examplePath !== ""){
-			visibleTextEditors.forEach((editor) =>
-			{
-				if(!editor.document.fileName.endsWith("jsfExample.java")){
-					let outputPath = editor.document.fileName;
-
-					let terminalCommand = 'java -jar "' +
-					jarPath +
-					'" -g org.antlr.codebuff.Java -rule compilationUnit -corpus "' +
-					examplePath +
-					'" -files java -comment LINE_COMMENT -o "' +
-					outputPath +
-					'" "' +
-					outputPath +
-					'"\n';
-		
-					vscode.commands.executeCommand('workbench.action.terminal.new').then(() =>
-					vscode.commands.executeCommand(
-						'workbench.action.terminal.sendSequence',
-						{"text": terminalCommand}
-					).then(() =>{
-						vscode.commands.executeCommand('workbench.action.terminal.focusPrevious');
-					}));
-		
-					// Display a message box to the user
-					vscode.window.showInformationMessage("reformatted " + outputPath);
-				}
-			});
-		}
-		else{
-			vscode.window.showInformationMessage("jsfExample file not open in a tab");
-		}
 	});
 
 	context.subscriptions.push(disposable);

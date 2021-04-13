@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:javasmartformatter.smartFormat"
+		"onCommand:javasmartformatter.formatOpen"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "javasmartformatter.smartFormat",
-				"title": "Smart Format"
+				"command": "javasmartformatter.formatOpen",
+				"title": "Smart format currently open file"
 			}
 		]
 	},
