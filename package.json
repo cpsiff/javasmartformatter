@@ -10,14 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:javasmartformatter.helloWorld"
+		"onCommand:javasmartformatter.smartFormat"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "javasmartformatter.helloWorld",
-				"title": "Hello World"
+				"command": "javasmartformatter.smartFormat",
+				"title": "Smart Format"
 			}
 		]
 	},

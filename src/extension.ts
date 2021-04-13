@@ -13,7 +13,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('javasmartformatter.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('javasmartformatter.smartFormat', () => {
 		// The code you place here will be executed every time your command is executed
 
 		let jarPath = "/home/carter/repos/codebuff/target/codebuff-1.5.1.jar";
@@ -46,10 +46,13 @@ export function activate(context: vscode.ExtensionContext) {
 					outputPath +
 					'"\n';
 		
+					vscode.commands.executeCommand('workbench.action.terminal.new').then(() =>
 					vscode.commands.executeCommand(
 						'workbench.action.terminal.sendSequence',
 						{"text": terminalCommand}
-					);
+					).then(() =>{
+						vscode.commands.executeCommand('workbench.action.terminal.focusPrevious');
+					}));
 		
 					// Display a message box to the user
 					vscode.window.showInformationMessage("reformatted " + outputPath);
