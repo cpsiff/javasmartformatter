@@ -17,26 +17,48 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		let jarPath = "/home/carter/repos/codebuff/target/codebuff-1.5.1.jar";
-		let corpusPath = "/home/carter/Desktop/extension testing/Example.java";
-		let outputPath = "/home/carter/Desktop/extension testing/Output.java";
+		// let corpusPath = "/home/carter/Desktop/extension testing/Example.java";
+		// let outputPath = "/home/carter/Desktop/extension testing/Output.java";
 
-		let terminalCommand = 'java -jar "' +
-			jarPath +
-			'" -g org.antlr.codebuff.Java -rule compilationUnit -corpus "' +
-			corpusPath +
-			'" -files java -comment LINE_COMMENT -o "' +
-			outputPath +
-			'" "' +
-			outputPath +
-			'"\n';
+		let visibleTextEditors = vscode.window.visibleTextEditors;
 
-		vscode.commands.executeCommand(
-			'workbench.action.terminal.sendSequence',
-			{"text": terminalCommand}
-		);
+		let examplePath = "";
+		let knownDocuments = vscode.workspace.textDocuments;
+		knownDocuments.forEach((doc) =>
+		{
+			if(doc.fileName.endsWith("jsfExample.java")){
+				examplePath = doc.fileName;
+			}
+		});
+		if(examplePath !== ""){
+			visibleTextEditors.forEach((editor) =>
+			{
+				if(!editor.document.fileName.endsWith("jsfExample.java")){
+					let outputPath = editor.document.fileName;
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage("reformatted " + outputPath);
+					let terminalCommand = 'java -jar "' +
+					jarPath +
+					'" -g org.antlr.codebuff.Java -rule compilationUnit -corpus "' +
+					examplePath +
+					'" -files java -comment LINE_COMMENT -o "' +
+					outputPath +
+					'" "' +
+					outputPath +
+					'"\n';
+		
+					vscode.commands.executeCommand(
+						'workbench.action.terminal.sendSequence',
+						{"text": terminalCommand}
+					);
+		
+					// Display a message box to the user
+					vscode.window.showInformationMessage("reformatted " + outputPath);
+				}
+			});
+		}
+		else{
+			vscode.window.showInformationMessage("jsfExample file not open in a tab");
+		}
 	});
 
 	context.subscriptions.push(disposable);
