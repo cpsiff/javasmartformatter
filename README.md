@@ -9,3 +9,10 @@ When invoked, the command searches through your open files (tabs across the top)
 The extension is built off of CodeBuff, which it calls under the hood.
 
 At the moment, the extension has to open a terminal instance to execute a command to call CodeBuff.
+
+## TODO
+- Package it up so you can run extension without dev kit
+- Make jar file path configurable
+- Try to improve the way it just opens a new terminal each time
+- Search the whole root directory for the example file
+    - Would be easy if you just assume the example is in the root directory and not a subfolder, using workspace.rootpath + "jsfExample.java"
