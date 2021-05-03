@@ -88,7 +88,7 @@ public class ExampleStyleGoogle {
 ```
 
 ## TODO
-- Package it up so you can run extension without dev kit
 - Try to improve the way it just opens a new terminal each time
     - If you try to kill the terminal after you run the command there's no way for it to wait for the command to finish executing - using a .then just waits for the command to finish being sent to the terminal, which is useless
 - Add command to smart format every java file in project
+- Auto-generate example files
