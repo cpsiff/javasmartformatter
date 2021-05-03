@@ -19,7 +19,18 @@
 				"command": "javasmartformatter.formatOpen",
 				"title": "Smart format currently open file"
 			}
-		]
+		],
+		"configuration": {
+			"title": "Java Smart Formatter",
+			"properties": {
+				"javasmartformatter.codebuff.jarLocation": {
+					"description": "Absolute path to CodeBuff jar file on system",
+					"type": "string",
+					"default": "/home/carter/repos/javasmartformatter/codebuff-1.5.1.jar",
+					"scope": "machine"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

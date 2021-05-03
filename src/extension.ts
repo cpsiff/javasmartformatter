@@ -16,7 +16,10 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('javasmartformatter.formatOpen', () => {
 		// The code you place here will be executed every time your command is executed
 
-		let jarPath = "/home/carter/repos/codebuff/target/codebuff-1.5.1.jar";
+		// Get jarPath from user configuration file
+		let jarPath = vscode.workspace.getConfiguration('javasmartformatter').get('codebuff.jarLocation');
+
+		// let jarPath = "/home/carter/repos/codebuff/target/codebuff-1.5.1.jar";
 		// let corpusPath = "/home/carter/Desktop/extension testing/Example.java";
 		// let outputPath = "/home/carter/Desktop/extension testing/Output.java";
 
