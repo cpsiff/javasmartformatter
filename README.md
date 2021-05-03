@@ -1,5 +1,9 @@
 # Java Smart Formatter Extension for VS Code
 
+## How to Install
+1. Download [javasmartformatter-0.0.1.vsix](javsmartformatter-0.0.1.vsix). Place this file in [the extensions folder](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#your-extension-folder) for your installation of vscode.
+2. Download [codebuff-1.5.1.jar](codebuff-1.5.1.jar) and point to it in java smart formatter's settings. To get to settings click extensions on the left hand side, then select java smart formatter, click the gear icon, then "Extension Settings".
+
 ## How to use
 The extension adds a command, called "Smart format open file" to VS Code. You can invoke the command using `ctrl+shift+P` and searching for smart format. You can also bind it to a keyboard shortcut as you would any other command.
 

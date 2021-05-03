@@ -1,4 +1,5 @@
 {
+	"publisher": "CarterSifferman",
 	"name": "javasmartformatter",
 	"displayName": "JavaSmartFormatter",
 	"description": "Smart formatter for Java based on CodeBuff",
